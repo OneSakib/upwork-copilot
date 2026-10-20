@@ -99,7 +99,7 @@ def build_graph(db: Session):
             return {"research": f"(web research unavailable: {type(e).__name__})"}
 
     def analyst(s: State):
-        out = llm(s).with_structured_output(Analysis).invoke(
+        out = llm(s).with_structured_output(Analysis, method="json_schema").invoke(
             [("system", prompts.ANALYST_SYSTEM), ("user", prompts.analyst_user(s))])
         a = out.model_dump()
         for k in ("confidence", "profile_fit", "response_chance", "win_chance"):
@@ -116,7 +116,7 @@ def build_graph(db: Session):
         return {"analysis": a}
 
     def writer(s: State):
-        out = llm(s, 3500).with_structured_output(ProposalOut).invoke(
+        out = llm(s, 3500).with_structured_output(ProposalOut, method="json_schema").invoke(
             [("system", prompts.writer_system(s["profile"])), ("user", prompts.writer_user(s))])
         return {"proposal": out.model_dump(), "attempts": s.get("attempts", 0) + 1}
 

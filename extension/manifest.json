@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Upwork Job Copilot",
+  "version": "1.0.0",
+  "description": "Analyzes an Upwork job (fake-client checks, competition, fit), tells you whether to apply, and writes the proposal.",
+  "permissions": ["storage", "activeTab", "scripting", "clipboardWrite"],
+  "host_permissions": ["https://www.upwork.com/*", "http://localhost:8000/*", "http://127.0.0.1:8000/*"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Upwork Job Copilot",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon48.png", "48": "icons/icon48.png" }
+  },
+  "options_page": "options.html",
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "content_scripts": [
+    { "matches": ["https://www.upwork.com/*"], "js": ["content.js"], "run_at": "document_idle" }
+  ]
+}

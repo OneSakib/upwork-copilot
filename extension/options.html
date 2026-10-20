@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Upwork Job Copilot – Settings</title><link rel="stylesheet" href="ui.css">
+<style>
+ body{max-width:760px;margin:24px auto;padding:0 16px} h1{margin-bottom:4px} h2{margin:22px 0 4px;font-size:15px;color:var(--acc)}
+ .two{display:grid;grid-template-columns:1fr 1fr;gap:12px} .hint{font-size:11px;color:var(--mute);margin-top:2px}
+ #msg{margin:12px 0;padding:10px;border-radius:8px;display:none} #msg.ok{display:block;background:rgba(16,185,129,.15)} #msg.err{display:block;background:rgba(239,68,68,.15)}
+</style></head>
+<body>
+<h1>🎯 Upwork Job Copilot</h1><div class="muted">Fill this once. After saving, pin the extension (puzzle icon → pin) and open any Upwork job.</div>
+
+<h2>Connection</h2>
+<div class="two">
+ <div><label>Backend URL</label><input id="apiBase" placeholder="http://localhost:8000"></div>
+ <div><label>Backend token (API_TOKEN in backend/.env)</label><input id="apiToken" type="password"></div>
+</div>
+<label><input type="checkbox" id="deepResearch" style="width:auto"> Deep research (agent runs web searches on the client / company / market rate; slower, costs a bit more)</label>
+<button class="ghost small" id="test" style="margin-top:6px">Test connection</button>
+
+<h2>Your profile (the AI uses only what you write here)</h2>
+<div class="two">
+ <div><label>Name (used in sign-off)</label><input id="name"></div>
+ <div><label>Professional title</label><input id="title" placeholder="Python / AI-ML Engineer"></div>
+ <div><label>Your country (to catch location-restricted jobs)</label><input id="country"></div>
+ <div><label>Years of experience</label><input id="years_experience" type="number"></div>
+ <div><label>Your hourly rate (USD)</label><input id="hourly_rate" type="number"></div>
+ <div><label>Minimum fixed budget (USD)</label><input id="min_fixed_budget" type="number"></div>
+</div>
+<label>Summary *</label><textarea id="summary" rows="4" placeholder="What you do, what you're best at, in plain words"></textarea>
+<label>Skills * (comma separated)</label><input id="skills">
+<label>Tools you use (comma separated)</label><input id="tools">
+<label>Niche / focus</label><input id="niche">
+<label>Past projects (one per line: name – result)</label><textarea id="past_projects" rows="4"></textarea>
+<label>Case study links (one per line)</label><textarea id="case_study_links" rows="2"></textarea>
+<label>Portfolio links (one per line)</label><textarea id="portfolio_links" rows="2"></textarea>
+
+<h2>Job preferences &amp; proposal style</h2>
+<label>Preferred client countries (comma separated)</label><input id="preferred_countries" placeholder="United States">
+<label>Opening hooks (one per line, from your hooks doc)</label><textarea id="hooks" rows="5"></textarea>
+<div class="hint">Hooks that say "written by a human" or "took me 20 minutes" are not included by default: an AI-written draft would make that claim untrue. Add them only if you rewrite each proposal yourself.</div>
+<label>Words the AI must never use (comma separated)</label><input id="banned_words">
+<label>Extra tone notes</label><textarea id="tone_notes" rows="2" placeholder="e.g. short sentences, no emojis except ✅"></textarea>
+<label>Sign-off</label><input id="signature" placeholder="Best regards, Sakib">
+
+<div id="msg"></div>
+<button id="save" style="margin:10px 0 40px">Save settings</button>
+<script src="common.js"></script><script src="options.js"></script>
+</body></html>
